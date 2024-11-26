@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STOP WATCH</title>
+    <link rel="stylesheet" href="watch.css">
+</head>
+<body>
+    <h1 style="text-align: center; padding-top: 10PX; font-weight: bolder;">STOP WATCH</h1>
+    <div class="stopwatch">
+        <h1 id="displayTime">00:00:00</h1>
+        <div class="buttons">
+            <img src="stop-button.png" alt="stop" onclick="watchstop()">
+            <img  style="width: 60px;" src="play.png" alt="start" onclick="watchstart()">
+            <img src="reset.png" alt="reset" onclick="wwatchreset()">
+        </div>
+    </div>
+<script>
+        let [seconds, minutes, hours] = [0, 0, 0];
+        let displaytime = document.getElementById("displayTime");
+        let timer = null;
+
+        function stopwatch() {
+            seconds++;
+            if (seconds == 60) {
+                seconds = 0;
+                minutes++;
+                if (minutes == 60) {
+                    minutes = 0;
+                    hours++;
+                }
+            }
+
+            // Format time components correctly
+            let h = hours < 10 ? "0" + hours : hours; // Correct condition for hours
+            let m = minutes < 10 ? "0" + minutes : minutes; // Correct condition for minutes
+            let s = seconds < 10 ? "0" + seconds : seconds; // Correct condition for seconds
+
+            // Update the display
+            displaytime.innerHTML = h + ":" + m + ":" + s;
+        }
+
+        function watchstart() {
+            if (timer != null) {
+                clearInterval(timer);
+            }
+            timer = setInterval(stopwatch, 1000); // Corrected function reference
+        }
+
+        function watchstop() {
+            clearInterval(timer);
+        }
+
+        function wwatchreset() {
+            clearInterval(timer);
+            [seconds, minutes, hours] = [0, 0, 0]; // Reset global variables
+            displaytime.innerHTML = "00:00:00";
+        }
+</script>
+</body>
+</html>
